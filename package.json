@@ -1,11 +1,16 @@
 {
   "name": "clay-model-vfr",
-  "version": "0.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "Clay Visualforce Connector for Clay-Model",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+   	"test": "tape ./test/index.js"
   },
-  "author": "",
-  "license": "BSD-2-Clause"
+  "author": "roberto@rodriguezartavia.com",
+  "repository": "https://github.com/3vot/clay-model-vfr",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "clay-model": "0.0.2",
+    "clay-vfr": "0.0.2"
+  }
 }

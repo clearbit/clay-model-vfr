@@ -10,7 +10,24 @@ var Ajax = function(eventName, model, options){
   var params = model;
   if(eventName == "query") return Ajax.query.call(this, params, options);  
   else if(eventName == "read") return Ajax.get.call(this, params, options);
-  else return Ajax.custom.call(this, model, options);
+  else if(eventName == "api") return Ajax.api.call(this, params, options);
+
+}
+
+Ajax.api = function(){
+  if(!this.namespace) this.namespace = ""
+  var args = Array.prototype.slice(arguments);
+  var remoteAction = args[0];
+  var callArgs = []
+  for (var i = 1; i < args.length-1; i++) {
+    callArgs.push(args[i]);
+  };
+  options = args[args.length-1];
+  if(typeof remoteAction != "string" ) throw "First Argument should be the Remote Action (string)"
+  if(options == remoteAction) options = {};
+
+  var send = VFR( this.namespace + remoteAction, options, options.nullok || false );
+  return send.apply( VFR, callArgs );
 }
 
 Ajax.query = function(params, options){

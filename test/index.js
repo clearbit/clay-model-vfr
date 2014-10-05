@@ -44,7 +44,7 @@ test('Create Records, with error in response', function (t) {
 })
 
 test('Update record', function (t) {
-  t.plan(2);
+  t.plan(3);
   var Asset = Model.new("Asset", ["name", "visible", "contact_methods"]);
   Asset.ajax = VFR;
 
