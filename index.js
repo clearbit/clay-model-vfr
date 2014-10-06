@@ -41,7 +41,7 @@ Ajax.query = function(params, options){
   .then(function(results){ 
     for (var i = results.length - 1; i >= 0; i--) {
       results[i].id = results[i].Id
-      results[i].Id = null;
+      delete results[i].Id;
     };
     return results;
    })
@@ -54,6 +54,7 @@ Ajax.get = function(id, options){
   return send( "get", Ajax.generateURL(this) + "/" + id, "" )
   .then(function(data){
     data.id = data.Id;
+    delete results[i].Id;
     return data;
   });
 }
