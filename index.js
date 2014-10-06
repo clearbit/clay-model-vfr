@@ -15,7 +15,8 @@ var Ajax = function(eventName, model, options){
 }
 
 Ajax.api = function(){
-  if(!this.namespace) this.namespace = ""
+  if(!this.ajax.namespace) this.ajax.namespace = ""
+  else this.ajax.namespace +="."
   var args = Array.prototype.slice(arguments);
   var remoteAction = args[0];
   var callArgs = []
@@ -31,40 +32,49 @@ Ajax.api = function(){
 }
 
 Ajax.query = function(params, options){
-  if(!this.namespace) this.namespace =""
-  var send = VFR(this.namespace + "ThreevotApiController.handleRest" );
-  return send( "query", "" , params );
+  if(!this.ajax.namespace) this.ajax.namespace =""
+  else this.ajax.namespace +="."
+
+  var pctEncodeSpaces = true;
+  var params = encodeURIComponent(params).replace(/%40/gi, '@').replace(/%3A/gi, ':').replace(/%24/g, '$').replace(/%2C/gi, ',').replace(/%20/g, pctEncodeSpaces ? '%20' : '+');
+  
+  var send = VFR(this.namespace + "ThreeVotApiController.handleRest" );
+  return send( "get", "/query?query=" + params , params );
 }
 
 Ajax.get = function(id, options){
-      if(!this.namespace) this.namespace =""
+  if(!this.ajax.namespace) this.ajax.namespace =""
+  else this.ajax.namespace +="."
 
-  var send = VFR(this.namespace + "ThreevotApiController.handleRest" );
+  var send = VFR(this.namespace + "ThreeVotApiController.handleRest" );
   return send( "get", Ajax.generateURL(this) + "/" + id );
 }
 
 Ajax.post = function(model, options){
-    if(!model.namespace) model.namespace =""
+  if(!model.ajax.namespace) model.namespace =""
+  else model.ajax.namespace +="."
 
   var id = this.id;
   delete this.id;
   var _this = this;
-  var send = VFR(model.namespace + "ThreevotApiController.handleRest" );
+  var send = VFR(model.namespace + "ThreeVotApiController.handleRest" );
   return send( "post", Ajax.generateURL(model) , JSON.stringify(this.toJSON()) )
   .then( function(data){ _this.id = id; return data; } )
 }
 
 Ajax.put = function(model, options){
-    if(!model.namespace) model.namespace =""
+  if(!model.ajax.namespace) model.ajax.namespace =""
+  else model.ajax.namespace +="."
 
-  var send = VFR(model.namespace + "ThreevotApiController.handleRest", {}, true );
+  var send = VFR(model.namespace + "ThreeVotApiController.handleRest", {}, true );
   return send( "put", Ajax.generateURL(model, this.id ), this.toJSON() );
 }
 
 Ajax.del = function(model, options){
-    if(!model.namespace) model.namespace =""
+  if(!model.ajax.namespace) model.ajax.namespace =""
+  else model.ajax.namespace +="."
 
-  var send = VFR(model.namespace + "ThreevotApiController.handleRest", {}, true );
+  var send = VFR(model.namespace + "ThreeVotApiController.handleRest", {}, true );
   return send( "del", Ajax.generateURL(model, this.id ) );
 }
 
