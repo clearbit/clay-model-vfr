@@ -8,12 +8,12 @@ ClayVFR.Visualforce = Visualforce;
 
 test('Create Records', function (t) {
   t.plan(4);
-  var Asset = Model.new("Asset", ["name", "visible", "contact_methods"]);
+  var Asset = Model.setup("Asset", ["name", "visible", "contact_methods"]);
   Asset.ajax = VFR;
 
   Visualforce.nextReponse= function(method, params, callback){       
     t.equal( params[0],"post" )
-    t.equal( params[1],"Asset" )
+    t.equal( params[1],"/Asset" )
     var obj = JSON.parse( params[2] );
     obj.id = 2;
 
@@ -31,7 +31,7 @@ test('Create Records', function (t) {
 
 test('Create Records, with error in response', function (t) {
   t.plan(1);
-  var Asset = Model.new("Asset", ["name", "visible", "contact_methods"]);
+  var Asset = Model.setup("Asset", ["name", "visible", "contact_methods"]);
   Asset.ajax = VFR;
 
   Visualforce.nextReponse= function(method, params, callback){       
@@ -44,12 +44,13 @@ test('Create Records, with error in response', function (t) {
 })
 
 test('Update record', function (t) {
-  t.plan(3);
-  var Asset = Model.new("Asset", ["name", "visible", "contact_methods"]);
+  t.plan(6);
+  var Asset = Model.setup("Asset", ["name", "visible", "contact_methods"]);
   Asset.ajax = VFR;
 
   Visualforce.nextReponse= function(method, params, callback){
-    t.equal( params[2].visible, true );
+    t.equal( params[0],"put" )
+    t.equal( params[1],"/Asset/3" )    
     callback();
   }
   
@@ -59,14 +60,18 @@ test('Update record', function (t) {
 
   asset.visible=true;
   asset.save()
+
   .then( function(sameAsset){ 
-    t.deepEqual(  asset, sameAsset) } );
+    t.deepEqual( asset.id, sameAsset.id)  
+    t.deepEqual( asset.name, sameAsset.name) 
+    t.deepEqual( asset.visible, sameAsset.visible)  });
 })
+
 
 
 test('Destroy record', function (t) {
   t.plan(3);
-  var Asset = Model.new("Asset", ["name", "visible", "contact_methods"]);
+  var Asset = Model.setup("Asset", ["name", "visible", "contact_methods"]);
   Asset.ajax = VFR;
 
   Visualforce.nextReponse= function(method, params, callback){
@@ -85,7 +90,7 @@ test('Destroy record', function (t) {
 
 test('Read record', function (t) {
   t.plan(1);
-  var Asset = Model.new("Asset", ["name", "visible", "contact_methods"]);
+  var Asset = Model.setup("Asset", ["name", "visible", "contact_methods"]);
   Asset.ajax = VFR;
 
   Visualforce.nextReponse= function(method, params, callback){
@@ -101,7 +106,7 @@ test('Read record', function (t) {
 
 test('Query record', function (t) {
   t.plan(1);
-  var Asset = Model.new("Asset", ["name", "visible", "contact_methods"]);
+  var Asset = Model.setup("Asset", ["name", "visible", "contact_methods"]);
   Asset.ajax = VFR;
 
   Visualforce.nextReponse= function(method, params, callback){
