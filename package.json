@@ -10,7 +10,7 @@
   "repository": "https://github.com/3vot/clay-model-vfr",
   "license": "BSD-2-Clause",
   "dependencies": {
-    "clay-model": "0.0.2",
-    "clay-vfr": "0.0.2"
+    "clay-model": "0.0.3",
+    "clay-vfr": "0.0.3"
   }
 }
