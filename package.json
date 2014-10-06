@@ -1,6 +1,6 @@
 {
   "name": "clay-model-vfr",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Clay Visualforce Connector for Clay-Model",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,7 @@
     "clay-model": "0.0.3",
     "clay-vfr": "0.0.3"
   },
-    "devDependencies": {
+  "devDependencies": {
     "tape": "~2.4.0"
   }
 }
