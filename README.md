@@ -62,6 +62,24 @@ options: [OBJECT] Options for Visualforce Remoting Configuration
 
 options.nullok: [BOOLEAN] Don't raise error if VFR response is null. Default: false -> will raise error is response is null
 
+## Packages for ISV's
+
+When the app is part of a package simple add the following line
+```
+User.ajax.namespace = "NAMESPACE.";
+```
+This must be done for each model. Notice the (.) at the end of the namespace, it is required.
+
+## Clay for Salesforce
+
+To use Clay-Model-VFR with Clay for Salesforce the namespaces work as follows:
+
+[https://appexchange.salesforce.com/listingDetail?listingId=a0N3000000B5XIMEA3]( App Exachange Instalation ) NAMESPACE = threevot.ThreeVotApiController
+
+[https://login.salesforce.com/packaging/installPackage.apexp?p0=04ti0000000XxBH]( Manual Instalation - No Updates ) ThreevotApiController
+
+[https://github.com/3vot/clayforsalesforce]( Open Source ) ThreevotApiController or you Package if using in Managed Package 
+
 
 
 

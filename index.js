@@ -1,5 +1,5 @@
 
-var VFR= require("clay-vfr")
+var VFR= require("./3vot-vfr")
 
 var Ajax = function(eventName, model, options){
   if(eventName == "create") return Ajax.post.call(this, model,options )
@@ -63,6 +63,7 @@ Ajax.post = function(model, options){
   if(!model.ajax.namespace) model.namespace =""
   var _this = this;
 
+
   var id = this.id;
   this.id = null;
   var send = VFR(model.ajax.namespace + "ThreeVotApiController.handleRest" );
@@ -73,13 +74,17 @@ Ajax.post = function(model, options){
 Ajax.put = function(model, options){
   if(!model.ajax.namespace) model.ajax.namespace =""
 
-  var id = this.id;
-  this.id = null;
-  var _this = this;
+  var valuesToSend = JSON.parse(JSON.stringify(this.toJSON())); //ugly hack
+  var previousAttributes = JSON.parse( model.previousAttributes[this.id] );
+  for(key in valuesToSend){
+    if(valuesToSend[key] == previousAttributes[key]){
+      delete valuesToSend[key];
+    }
+  }
 
   var send = VFR(model.ajax.namespace + "ThreeVotApiController.handleRest", {}, true );
-  return send( "put", Ajax.generateURL(model, id ), JSON.stringify(this.toJSON()) )
-  .then( function(data){ _this.id = id; return data; } )
+  return send( "put", Ajax.generateURL(model, this.id ), JSON.stringify(valuesToSend) )
+  .then( function(data){ return data; } )
 }
 
 Ajax.del = function(model, options){
