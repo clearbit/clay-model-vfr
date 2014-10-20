@@ -1,5 +1,5 @@
 
-var VFR= require("./3vot-vfr")
+var VFR= require("3vot-vfr")
 
 var Ajax = function(eventName, model, options){
   if(eventName == "create") return Ajax.post.call(this, model,options )
