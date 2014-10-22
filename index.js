@@ -60,7 +60,7 @@ Ajax.get = function(id, options){
 }
 
 Ajax.post = function(model, options){
-  if(!model.ajax.namespace) model.namespace =""
+  if(!model.ajax.namespace) model.ajax.namespace =""
   var _this = this;
 
 
