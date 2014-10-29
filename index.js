@@ -14,20 +14,28 @@ var Ajax = function(eventName, model, options){
 
 }
 
+Ajax.vfr = function(remoteAction, values, options){
+  if(typeof remoteAction != "string" ) throw "First Argument should be the Remote Action (string)"
+  if(!options) options = {};
+
+  var send = VFR( remoteAction, options, options.nullok || false );
+  return send.apply( VFR, values );
+}
+
 Ajax.api = function(){
   if(!this.ajax.namespace) this.ajax.namespace = ""
-  var args = Array.prototype.slice(arguments);
-  var remoteAction = args[0];
+  var remoteAction = arguments[0];
+  
   var callArgs = []
-  for (var i = 1; i < args.length-1; i++) {
+  for (var i = 1; i < arguments.length-1; i++) {
     callArgs.push(args[i]);
   };
-  options = args[args.length-1];
+  options = arguments[arguments.length-1];
   if(typeof remoteAction != "string" ) throw "First Argument should be the Remote Action (string)"
   if(options == remoteAction) options = {};
 
-  var send = VFR( this.namespace + remoteAction, options, options.nullok || false );
-  return send.apply( VFR, callArgs );
+  var send = VFR( this.ajax.namespace + remoteAction, options, options.nullok || false );
+  return send.apply( VFR, JSON.stringify(this.toJSON()) );
 }
 
 Ajax.query = function(params, options){
