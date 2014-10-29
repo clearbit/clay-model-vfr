@@ -14,12 +14,13 @@ var Ajax = function(eventName, model, options){
 
 }
 
-Ajax.vfr = function(remoteAction, values, options){
+Ajax.vfr = function(remoteAction, options){
   if(typeof remoteAction != "string" ) throw "First Argument should be the Remote Action (string)"
-  if(!options) options = {};
+  if(!options) options = { escape: false  };
+  
 
   var send = VFR( remoteAction, options, options.nullok || false );
-  return send.apply( VFR, values );
+  return send
 }
 
 Ajax.api = function(){
