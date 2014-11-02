@@ -11,7 +11,7 @@
   "license": "BSD-2-Clause",
   "dependencies": {
     "clay-model": "0.0.4",
-    "clay-vfr": "0.0.3"
+    "clay-vfr": "0.0.4"
   },
   "devDependencies": {
     "tape": "~2.4.0"
