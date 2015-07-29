@@ -24,7 +24,7 @@ Ajax.vfr = function(remoteAction, options){
 }
 
 Ajax.api = function(){
-  if(!this.ajax.namespace) this.ajax.namespace = "threevot."
+  if(!this.ajax.namespace && this.ajax.namespace != "") this.ajax.namespace = "threevot."
   var remoteAction = arguments[0];
   
   var callArgs = []
@@ -40,7 +40,7 @@ Ajax.api = function(){
 }
 
 Ajax.query = function(params, options){
-  if(!this.ajax.namespace) this.ajax.namespace = "threevot."
+  if(!this.ajax.namespace && this.ajax.namespace != "") this.ajax.namespace = "threevot."
 
   var pctEncodeSpaces = true;
   var params = encodeURIComponent(params).replace(/%40/gi, '@').replace(/%3A/gi, ':').replace(/%24/g, '$').replace(/%2C/gi, ',').replace(/%20/g, pctEncodeSpaces ? '%20' : '+');
@@ -57,7 +57,7 @@ Ajax.query = function(params, options){
 }
 
 Ajax.get = function(id, options){
-  if(!this.ajax.namespace) this.ajax.namespace = "threevot."
+  if(!this.ajax.namespace && this.ajax.namespace != "") this.ajax.namespace = "threevot."
 
   var send = VFR(this.ajax.namespace + "ThreeVotApiController.handleRest" );
   return send( "get", Ajax.generateURL(this) + "/" + id, "" )
@@ -69,7 +69,7 @@ Ajax.get = function(id, options){
 }
 
 Ajax.post = function(model, options){
-  if(!model.ajax.namespace) this.ajax.namespace = "threevot."
+  if(!this.ajax.namespace && this.ajax.namespace != "") this.ajax.namespace = "threevot."
   var _this = this;
 
 
@@ -81,7 +81,7 @@ Ajax.post = function(model, options){
 }
 
 Ajax.put = function(model, options){
-  if(!model.ajax.namespace) model.ajax.namespace ="threevot."
+  if(!this.ajax.namespace && this.ajax.namespace != "") this.ajax.namespace = "threevot."
 
   var valuesToSend = JSON.parse(JSON.stringify(this.toJSON())); //ugly hack
   var previousAttributes = JSON.parse( model.previousAttributes[this.id] );
@@ -97,7 +97,7 @@ Ajax.put = function(model, options){
 }
 
 Ajax.del = function(model, options){
-  if(!model.ajax.namespace) model.ajax.namespace ="threevot."
+  if(!this.ajax.namespace && this.ajax.namespace != "") this.ajax.namespace = "threevot."
 
   var send = VFR(model.ajax.namespace + "ThreeVotApiController.handleRest", {}, true );
   return send( "del", Ajax.generateURL(model, this.id ), "" );
