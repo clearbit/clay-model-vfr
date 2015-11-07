@@ -45,7 +45,7 @@ Ajax.query = function(params, options){
   var pctEncodeSpaces = true;
   var params = encodeURIComponent(params).replace(/%40/gi, '@').replace(/%3A/gi, ':').replace(/%24/g, '$').replace(/%2C/gi, ',').replace(/%20/g, pctEncodeSpaces ? '%20' : '+');
   
-  var send = VFR(this.ajax.namespace + "ThreeVotApiController.handleRest" );
+  var send = VFR(this.ajax.namespace + ".handleRest" );
   return send( "get", "/query?query=" + params , "" )
   .then(function(results){ 
     for (var i = results.length - 1; i >= 0; i--) {
@@ -59,7 +59,7 @@ Ajax.query = function(params, options){
 Ajax.get = function(id, options){
   if(!this.ajax.namespace && this.ajax.namespace != "") this.ajax.namespace = "threevot."
 
-  var send = VFR(this.ajax.namespace + "ThreeVotApiController.handleRest" );
+  var send = VFR(this.ajax.namespace + ".handleRest" );
   return send( "get", Ajax.generateURL(this) + "/" + id, "" )
   .then(function(data){
     data.id = data.Id;
@@ -75,7 +75,7 @@ Ajax.post = function(model, options){
 
   var id = this.id;
   this.id = null;
-  var send = VFR(model.ajax.namespace + "ThreeVotApiController.handleRest" );
+  var send = VFR(model.ajax.namespace + ".handleRest" );
   return send( "post", Ajax.generateURL(model) , JSON.stringify(this.toJSON()) )
   .then( function(data){ _this.id = id; return data; } )
 }
@@ -91,7 +91,7 @@ Ajax.put = function(model, options){
     }
   }
 
-  var send = VFR(model.ajax.namespace + "ThreeVotApiController.handleRest", {}, true );
+  var send = VFR(model.ajax.namespace + ".handleRest", {}, true );
   return send( "put", Ajax.generateURL(model, this.id ), JSON.stringify(valuesToSend) )
   .then( function(data){ return data; } )
 }
@@ -99,7 +99,7 @@ Ajax.put = function(model, options){
 Ajax.del = function(model, options){
   if(!this.ajax.namespace && this.ajax.namespace != "") this.ajax.namespace = "threevot."
 
-  var send = VFR(model.ajax.namespace + "ThreeVotApiController.handleRest", {}, true );
+  var send = VFR(model.ajax.namespace + ".handleRest", {}, true );
   return send( "del", Ajax.generateURL(model, this.id ), "" );
 }
 
