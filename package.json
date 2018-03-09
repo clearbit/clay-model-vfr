@@ -11,7 +11,7 @@
   "license": "BSD-2-Clause",
   "dependencies": {
     "clay-model": "0.0.6",
-    "clay-vfr": "0.0.7"
+    "clay-vfr": "clearbit/clay-vfremoting"
   },
   "devDependencies": {
     "tape": "~2.4.0"
